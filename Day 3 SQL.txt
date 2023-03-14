@@ -1,0 +1,50 @@
+Q. Vishwasamudra is a construction company. They need a software to develop a application for sales team to communicate with the customer.
+There are two types of categories for price with material.
+
+City		Price with material		Price without material
+
+Tvm			1600				800
+Chennai			1800				1000
+Hyderabad		2000				900
+Mumbai			2500				1200
+Kochi			1800				1200
+
+Now when a customer types the city and sqft he should get the total amount to construct. Write a java program (java8) and implement the test engines
+for testing. Wrtie the sequential sql query to insert data.
+
+
+ANSWERS
+
+
+create table pricedetails (
+	city varchar(20),
+	pricewithmat int,
+	pricewithoutmat int
+	primary key (city)
+);
+
+create table customer (
+	name varchar(20),
+    	city varchar(20),
+    	sqft int
+	foreign key (city) references pricedetails (city)
+);
+
+insert into pricedetails values ("Tvm",1600,800);
+insert into pricedetails values ("Chennai",1800,1000);
+insert into pricedetails values ("Hyderabad",2000,900);
+insert into pricedetails values ("Mumbai",2500,1200);
+insert into pricedetails values ("Kochi",1800,1200);
+
+
+insert into customer values ("sasi","Tvm",2);
+insert into customer values ("abu","Kochi",3);
+insert into customer values ("kodiyan","Mumbai",4);
+
+
+select *,pricewithmat*sqft as Total_Price_With_Material,pricewithoutmat*sqft as Total_Price_Without_Material 
+from pricedetails,customer 
+where pricedetails.city=customer.city ;
+
+
+
